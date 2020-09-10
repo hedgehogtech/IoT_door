@@ -23,13 +23,13 @@ Works great with Adafruit's Huzzah ESP board & Feather
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-#define WLAN_SSID       "" //add wifi ssid
-#define WLAN_PASS       "" //add wifi password
+#define WLAN_SSID       "WIFI" //add wifi ssid
+#define WLAN_PASS       "WIFI PASSWORD" //add wifi password
 
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883                   // use 8883 for SSL
-#define AIO_USERNAME    ""                    //add adafruit IO user id
-#define AIO_KEY         ""                    //add adafruit IO key
+#define AIO_USERNAME    "ID"                    //add adafruit IO user id
+#define AIO_KEY         "IO_KEY"                    //add adafruit IO key
 
 WiFiClient client;
 // or... use WiFiFlientSecure for SSL
@@ -40,7 +40,7 @@ Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO
 Adafruit_MQTT_Publish door = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/door");
 
 // Setup a feed called 'onoff' for subscribing to changes.
-Adafruit_MQTT_Subscribe door = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/door");
+Adafruit_MQTT_Subscribe door_s = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/door");
 
 void MQTT_connect();
 
@@ -72,7 +72,7 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   // Setup MQTT subscription for onoff feed.
-  mqtt.subscribe(&door);
+  mqtt.subscribe(&door_s);
   pinMode(buttonPin, INPUT_PULLUP);
 }
 
@@ -84,9 +84,9 @@ void loop() {
   // this is our 'wait for incoming subscription packets' busy subloop
   Adafruit_MQTT_Subscribe *subscription;
   while ((subscription = mqtt.readSubscription(5000))) {
-    if (subscription == &door) {
+    if (subscription == &door_s) {
       Serial.print(F("Got: "));
-      Serial.println((char *)door.lastread);
+      Serial.println((char *)door_s.lastread);
     }
   }
 
