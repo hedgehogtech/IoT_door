@@ -1,3 +1,23 @@
+/*******************************************  
+Code Inpsired from Adafruit MQTT Library ESP8266 Example
+
+  Must use ESP8266 Arduino from:
+    https://github.com/esp8266/Arduino
+
+Works great with Adafruit's Huzzah ESP board & Feather
+  ----> https://www.adafruit.com/product/2471
+  ----> https://www.adafruit.com/products/2821
+
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
+  products from Adafruit!
+  
+  Orignal MQTT Example code Written by Tony DiCola for Adafruit Industries.
+  
+  Contributed by Muhammad Vellani  and code Tested on NODEMCU-AMICA with a reed-sensor (NO)
+    
+*****************************************/
+
 #include <ESP8266WiFi.h>
 //#include <WiFi.h>
 #include "Adafruit_MQTT.h"
